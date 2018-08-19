@@ -6,10 +6,9 @@ class Minesweeper extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            game: {
-                board: []
-            },
-            gameId: ''
+            game: { board: [] }, 
+            gameId: '',
+            difficulty: 0
         }
     }
 
@@ -89,11 +88,21 @@ class Minesweeper extends Component {
             })
         })
     }
-
     
     render() {
         return (
-            <div className='Board'>
+            <div>
+              <div>
+                <div className='Difficulty-Menu'>
+                    <select>
+                        <option>Easy</option>
+                        <option>Medium</option>
+                        <option>Hard</option>
+                    </select>
+                    <button placeholder="Restart"></button>
+                </div>
+              </div>
+              <div className='Board'>
                 <div className='Board-Border'>
                     {this.state.game.board.map((row, i) => {
                         return (
@@ -112,6 +121,7 @@ class Minesweeper extends Component {
                         )
                     })}  
                 </div>
+              </div>
             </div>
         );
     }
