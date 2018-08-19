@@ -71,6 +71,27 @@ class Minesweeper extends Component {
         .catch(console.error)
     }
 
+    flaggedSquare = (e, row, column) => {
+        e.preventDefault()
+        fetch(`${BoardURL}/games/${this.state.gameId}/flag`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify({
+                "row": row,
+                "col": column
+            })
+        })
+        .then(resp => resp.json())
+        .then(newGame => {
+            console.log(newGame)
+            this.setState({
+                game: newGame
+            })
+        })
+    }
+
     
     render() {
         return (
