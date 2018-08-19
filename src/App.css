@@ -39,3 +39,14 @@
   align-items: center;
 }
 
+.square {
+  background-color: lightgray;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.square:hover {
+  background-color: darkgrey;
+}
+

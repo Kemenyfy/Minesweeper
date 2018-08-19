@@ -96,11 +96,11 @@ class Minesweeper extends Component {
                 <div className='Board-Border'>
                     {this.state.game.board.map((row, i) => {
                         return (
-                            <div key={i} className='row'>
+                            <div key={i} className='row square'>
                                 {row.map((col, j) => {
                                     return (
                                         <span key={j}
-                                        className='column'
+                                        className='column square'
                                         onClick={() => this.clickedSquare(i, j)}
                                         onContextMenu={() => this.flaggedSquare(i, j)}>
                                           {this.renderCells(i, j)}
