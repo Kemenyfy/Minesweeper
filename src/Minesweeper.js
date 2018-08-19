@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { networkFirst } from 'sw-toolbox';
 
 const BoardURL = 'https://minesweeper-api.herokuapp.com'
 
@@ -71,8 +70,7 @@ class Minesweeper extends Component {
         .catch(console.error)
     }
 
-    flaggedSquare = (e, row, column) => {
-        e.preventDefault()
+    flaggedSquare = (row, column) => {
         fetch(`${BoardURL}/games/${this.state.gameId}/flag`, {
             method: "POST",
             headers: {
@@ -85,7 +83,6 @@ class Minesweeper extends Component {
         })
         .then(resp => resp.json())
         .then(newGame => {
-            console.log(newGame)
             this.setState({
                 game: newGame
             })
