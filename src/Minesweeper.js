@@ -31,13 +31,13 @@ class Minesweeper extends Component {
 
     renderCells = (row, column) => {
         if (this.state.game.board[row][column] === "_") {
-            return "_"
+            return "◻️"
         }
         else if (this.state.game.board[row][column] === "F") {
-            return "F"
+            return "🚩"
         }
         else if (this.state.game.board[row][column] === "*") {
-            return "*"
+            return "💣"
         }
         else {
             return this.state.game.board[row][column]
@@ -48,7 +48,7 @@ class Minesweeper extends Component {
         fetch(`${BoardURL}/games/${this.state.gameId}/check`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json; charset=utf-8",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "row": row,
@@ -70,11 +70,12 @@ class Minesweeper extends Component {
         .catch(console.error)
     }
 
-    flaggedSquare = (row, column) => {
+    flaggedSquare = (e , row, column) => {
+        e.preventDefault()
         fetch(`${BoardURL}/games/${this.state.gameId}/flag`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json; charset=utf-8"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 "row": row,
@@ -102,7 +103,7 @@ class Minesweeper extends Component {
                                         <span key={j}
                                         className='column square'
                                         onClick={() => this.clickedSquare(i, j)}
-                                        onContextMenu={() => this.flaggedSquare(i, j)}>
+                                        onContextMenu={(e) => this.flaggedSquare(e, i, j)}>
                                           {this.renderCells(i, j)}
                                         </span>
                                     )
