@@ -13,11 +13,42 @@ class Minesweeper extends Component {
         }
     }
 
+    componentDidMount() {
+        fetch(`${BoardURL}/games/`, {
+            method: "POST",
+            body: JSON.stringify({
+                difficulty: 0
+            })
+        })
+        .then(resp => resp.json())
+        .then(newGame => {
+            this.setState({
+                game: newGame,
+                gameId: newGame.id
+            })
+        })
+    }
+
+    renderCells = (row, column) => {
+        if (this.state.game.board[row][column] === "_") {
+            return "_"
+        }
+        else if (this.state.game.board[row][column] === "F") {
+            return "F"
+        }
+        else if (this.state.game.board[row][column] === "*") {
+            return "*"
+        }
+        else {
+            return this.state.game.board[row][column]
+        }
+    }
+
     
     render() {
         return (
-            <div className='board'>
-                <div className='board-border'>
+            <div className='Board'>
+                <div className='Board-Border'>
                     {this.state.game.board.map((row, i) => {
                         return (
                             <div key={i} className='row'>
