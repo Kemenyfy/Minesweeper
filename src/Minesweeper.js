@@ -8,7 +8,7 @@ class Minesweeper extends Component {
         this.state = {
             game: { board: [] }, 
             gameId: '',
-            difficulty: 0
+            difficulty: 0,
         }
     }
 
@@ -59,7 +59,7 @@ class Minesweeper extends Component {
             this.setState({
                 game: newGame
             })
-            if (this.state.game.state === "lost") {
+            if (this.state.game.state === "lost") { 
                 console.log('You Lose!')
             }
             else if (this.state.game.state === "won") {
@@ -88,10 +88,11 @@ class Minesweeper extends Component {
             })
         })
     }
-    
+
     render() {
         return (
             <div>
+            <div className='Result'>{this.state.game.state}</div>
               <div>
                 <div className='Difficulty-Menu'>
                     <select>
@@ -99,7 +100,7 @@ class Minesweeper extends Component {
                         <option>Medium</option>
                         <option>Hard</option>
                     </select>
-                    <button placeholder="Restart"></button>
+                    <button className='Restart-Button'>Restart</button>
                 </div>
               </div>
               <div className='Board'>

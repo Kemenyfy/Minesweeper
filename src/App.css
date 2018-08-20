@@ -51,6 +51,29 @@
 .Difficulty-Menu {
   display: flex;
   justify-content: center;
+  align-content: center;
   clear: both;
   padding: 20px;
+}
+
+.Restart-Button {
+  float: right;
+  padding: .3em .6em;
+  margin-left: 10em;
+  background-color: gray;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.Restart-Button {
+  opacity: .8;
+}
+
+.Result {
+  color: black;
+  padding-top: 2em;
 }
