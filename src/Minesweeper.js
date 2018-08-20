@@ -7,17 +7,19 @@ class Minesweeper extends Component {
         super(props);
         this.state = {
             game: { board: [] }, 
-            gameId: '',
-            difficulty: 0,
+            // gameId: '',
+            level: 0,
+            // results: '',
         }
     }
 
-    componentDidMount() {
+    createGame() {
         fetch(`${BoardURL}/games/`, {
             method: "POST",
-            body: JSON.stringify({
-                difficulty: 0
-            })
+            body: JSON.stringify({ difficulty: this.state.level }),
+            headers: {
+                "Content-Type": "application/json"
+            }
         })
         .then(resp => resp.json())
         .then(newGame => {
@@ -26,6 +28,14 @@ class Minesweeper extends Component {
                 gameId: newGame.id
             })
         })
+    }
+
+    componentDidMount() {
+        this.createGame()
+    }
+
+    resetEvent = () => {
+        this.createGame()
     }
 
     renderCells = (row, column) => {
@@ -77,7 +87,7 @@ class Minesweeper extends Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                "row": row,
+                "row": row, 
                 "col": column
             })
         })
@@ -89,18 +99,26 @@ class Minesweeper extends Component {
         })
     }
 
+    changeDifficulty = (event) => {
+        this.setState({
+            level: event.target.value
+        }, () => {
+            this.createGame
+        })
+    }
+
     render() {
         return (
             <div>
             <div className='Result'>{this.state.game.state}</div>
               <div>
                 <div className='Difficulty-Menu'>
-                    <select>
-                        <option>Easy</option>
-                        <option>Medium</option>
-                        <option>Hard</option>
+                    <select onChange={(event) => this.changeDifficulty(event)}>
+                        <option value="0">Easy</option>
+                        <option value="1">Medium</option>
+                        <option value="2">Hard</option>
                     </select>
-                    <button className='Restart-Button'>Restart</button>
+                    <button className='Restart-Button' onClick={this.resetEvent}>Restart</button>
                 </div>
               </div>
               <div className='Board'>
