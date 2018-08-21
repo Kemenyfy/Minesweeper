@@ -72,23 +72,25 @@ class Minesweeper extends Component {
     }
 
     clickedSquare = (row, column) => {
-        fetch(`${BoardURL}/games/${this.state.gameId}/check`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                "row": row,
-                "col": column
+        if (!(this.state.game.state === "lost"|| this.state.game.state === "won")) {
+            fetch(`${BoardURL}/games/${this.state.gameId}/check`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "row": row,
+                    "col": column
+                })
             })
-        })
-        .then(resp => resp.json())
-        .then(newGame => {
-            this.setState({
-                game: newGame
+            .then(resp => resp.json())
+            .then(newGame => {
+                this.setState({
+                    game: newGame
+                })
+                this.displayGameResult()
             })
-            this.displayGameResult()
-        })
+        }
     }
 
     flaggedSquare = (e , row, column) => {
