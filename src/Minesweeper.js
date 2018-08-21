@@ -9,7 +9,7 @@ class Minesweeper extends Component {
             game: { board: [] }, 
             // gameId: '',
             level: 0,
-            // results: '',
+            results: ''
         }
     }
 
@@ -25,7 +25,7 @@ class Minesweeper extends Component {
         .then(newGame => {
             this.setState({
                 game: newGame,
-                gameId: newGame.id
+                gameId: newGame.id,
             })
         })
     }
@@ -53,6 +53,24 @@ class Minesweeper extends Component {
         }
     }
 
+    displayGameResult() {
+        if (this.state.game.state === "lost") { 
+            this.setState({
+                results: "You Lost!"
+            })
+        }
+        else if (this.state.game.state === "won") {
+            this.setState({
+                results: "You Won!"
+            })
+        }
+        else {
+            this.setState({
+                results: "Playing..."
+            })
+        }
+    }
+
     clickedSquare = (row, column) => {
         fetch(`${BoardURL}/games/${this.state.gameId}/check`, {
             method: "POST",
@@ -69,14 +87,8 @@ class Minesweeper extends Component {
             this.setState({
                 game: newGame
             })
-            if (this.state.game.state === "lost") { 
-                console.log('You Lose!')
-            }
-            else if (this.state.game.state === "won") {
-                console.log('You Won!')
-            }
+            this.displayGameResult()
         })
-        .catch(console.error)
     }
 
     flaggedSquare = (e , row, column) => {
@@ -110,7 +122,7 @@ class Minesweeper extends Component {
     render() {
         return (
             <div>
-            <div className='Result'>{this.state.game.state}</div>
+            <div className='Result'>{this.state.results}</div>
               <div>
                 <div className='Difficulty-Menu'>
                     <select onChange={(event) => this.changeDifficulty(event)}>
