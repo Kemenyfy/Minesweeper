@@ -9,7 +9,7 @@ class Minesweeper extends Component {
             game: { board: [] }, 
             // gameId: '',
             level: 0,
-            results: ''
+            results: 'Start Playing!'
         }
     }
 
@@ -36,6 +36,9 @@ class Minesweeper extends Component {
 
     resetEvent = () => {
         this.createGame()
+        this.setState({
+            results: "Start Playing!"
+        })
     }
 
     renderCells = (row, column) => {
@@ -117,7 +120,7 @@ class Minesweeper extends Component {
         this.setState({
             level: event.target.value
         }, () => {
-            this.createGame
+            this.resetEvent()
         })
     }
 
